@@ -45,22 +45,36 @@ export default function ContactForm({
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
       setData((d) => ({ ...d, [k]: e.target.value }));
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!data.email || !data.name) return;
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setData({
-        name: '',
-        email: '',
-        phone: '',
-        brand: '',
-        plan: '',
-        msg: '',
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
-      if (onSuccess) onSuccess();
-    }, 700);
+
+      if (response.ok) {
+        setData({
+          name: '',
+          email: '',
+          phone: '',
+          brand: '',
+          plan: '',
+          msg: '',
+        });
+        if (onSuccess) onSuccess();
+      } else {
+        alert('Có lỗi khi gửi. Vui lòng thử lại.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Có lỗi khi gửi. Vui lòng thử lại.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
