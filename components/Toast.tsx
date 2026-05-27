@@ -5,8 +5,9 @@ import { useModal } from '@/lib/ModalContext';
 export default function Toast() {
   const { t } = useI18n();
   const { toastShow } = useModal();
+  if (!toastShow) return null;
   return (
-    <div className={'toast' + (toastShow ? ' show' : '')}>
+    <div className={'toast show'}>
       <span className="ic">✓</span> {t('cta.toast')}
     </div>
   );
