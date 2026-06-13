@@ -1671,8 +1671,8 @@ section[id] { scroll-margin-top: 88px; }
 }
 @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
 @media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
-.footer__brand { max-width: 320px; }
-.footer__brand img { height: 72px; margin-bottom: 16px; }
+.footer__brand { max-width: 360px; }
+.footer__brand img { height: 180px; width: auto; margin-bottom: 16px; }
 .footer__brand p { color: var(--muted); font-size: 14px; }
 .footer__col h4 {
   font-family: var(--f-mono);
