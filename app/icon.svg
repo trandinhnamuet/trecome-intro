@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Blue circle — area outside is transparent (no background rect) -->
+  <circle cx="250" cy="250" r="218" fill="#1d4773"/>
+
+  <!-- White T shape with bamboo joint -->
+  <path
+    d="
+      M148,158 H352 V212 H282
+      V266 C282,270 279,272 279,272
+      C279,272 282,275 282,280
+      V388 H218
+      V280 C218,275 221,272 221,272
+      C221,272 218,270 218,266
+      V212 H148 Z
+    "
+    fill="white"
+  />
+</svg>

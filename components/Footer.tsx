@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__grid">
           <div className="footer__brand">
-            <img src="/assets/logo.png" alt="Trecome" />
+            <img src="/assets/logo-small.png" alt="Trecome" />
             <p>{t('footer.tagline')}</p>
           </div>
           <div className="footer__col">

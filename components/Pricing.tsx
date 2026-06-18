@@ -95,6 +95,8 @@ const PLANS: Plan[] = [
 interface CmpRow {
   k: string;
   vals: FeatVal[];
+  rowSpan?: number[];  // per-column rowspan
+  skipCol?: boolean[]; // per-column: skip cell (covered by rowspan above)
 }
 interface CmpGroup {
   label: string;
@@ -123,8 +125,8 @@ const CMP_GROUPS: CmpGroup[] = [
   {
     label: 'compare.group.3',
     rows: [
-      { k: 'mallinfo', vals: ['4M₫', '4M₫', true, true] },
-      { k: 'mallapply', vals: [false, false, true, true] },
+      { k: 'mallinfo', vals: ['4M₫', '4M₫', true, true], rowSpan: [2, 2, 1, 1] },
+      { k: 'mallapply', vals: [false, false, true, true], skipCol: [true, true, false, false] },
     ],
   },
   {
@@ -274,40 +276,48 @@ export default function Pricing() {
             {t('pricing.compare.title')}
           </h3>
           <div className="compare__wrap">
-            <div className="compare">
-              <div className="compare__header">
-                <div>{t('compare.feature')}</div>
-                {PLANS.map((p) => (
-                  <div key={p.id} className={p.featured ? 'feat' : ''}>
-                    {t(`plan.${p.id}.name`)}
-                  </div>
-                ))}
-              </div>
-              {CMP_GROUPS.map((g, gi) => (
-                <Fragment key={gi}>
-                  <div className="compare__group">
-                    <div>{t(g.label)}</div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                  {g.rows.map((row, ri) => (
-                    <div key={ri} className="compare__row">
-                      <div>{t(`feat.${row.k}`)}</div>
-                      {row.vals.map((v, vi) => (
-                        <div
-                          key={vi}
-                          className={PLANS[vi].featured ? 'feat' : ''}
-                        >
-                          {renderVal(v)}
-                        </div>
-                      ))}
-                    </div>
+            <table className="compare">
+              <colgroup>
+                <col className="compare__col-feat" />
+                <col /><col /><col /><col />
+              </colgroup>
+              <thead>
+                <tr className="compare__header">
+                  <th>{t('compare.feature')}</th>
+                  {PLANS.map((p) => (
+                    <th key={p.id} className={p.featured ? 'feat' : ''}>
+                      {t(`plan.${p.id}.name`)}
+                    </th>
                   ))}
-                </Fragment>
-              ))}
-            </div>
+                </tr>
+              </thead>
+              <tbody>
+                {CMP_GROUPS.map((g, gi) => (
+                  <Fragment key={gi}>
+                    <tr className="compare__group">
+                      <td colSpan={5}>{t(g.label)}</td>
+                    </tr>
+                    {g.rows.map((row, ri) => (
+                      <tr key={ri} className="compare__row">
+                        <td>{t(`feat.${row.k}`)}</td>
+                        {row.vals.map((v, vi) => {
+                          if (row.skipCol?.[vi]) return null;
+                          return (
+                            <td
+                              key={vi}
+                              rowSpan={row.rowSpan?.[vi] ?? 1}
+                              className={PLANS[vi].featured ? 'feat' : ''}
+                            >
+                              {renderVal(v)}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
