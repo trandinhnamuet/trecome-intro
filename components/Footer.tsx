@@ -58,7 +58,7 @@ export default function Footer() {
                 <a href="#blog">{t('blog.title')}</a>
               </li>
               <li>
-                <a href="mailto:info@trecome.com.vn">info@trecome.com.vn</a>
+                <a href="mailto:hi@trecome.vn">hi@trecome.vn</a>
               </li>
             </ul>
           </div>
