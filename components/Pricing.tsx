@@ -25,8 +25,8 @@ interface Plan {
 const PLANS: Plan[] = [
   {
     id: 'buildup',
-    price: 4000000,
-    pricePerQ: 4000000 * 3 * 0.9,
+    price: 3999000,
+    pricePerQ: 3999000 * 3 * 0.9,
     featured: false,
     feats: [
       { k: 'research', on: true },
@@ -42,8 +42,8 @@ const PLANS: Plan[] = [
   },
   {
     id: 'starter',
-    price: 8000000,
-    pricePerQ: 8000000 * 3 * 0.9,
+    price: 7999000,
+    pricePerQ: 7999000 * 3 * 0.9,
     featured: false,
     feats: [
       { k: 'research', on: true },
@@ -59,8 +59,8 @@ const PLANS: Plan[] = [
   },
   {
     id: 'growup',
-    price: 10000000,
-    pricePerQ: 10000000 * 3 * 0.9,
+    price: 9999000,
+    pricePerQ: 9999000 * 3 * 0.9,
     featured: true,
     feats: [
       { k: 'research', on: true },
