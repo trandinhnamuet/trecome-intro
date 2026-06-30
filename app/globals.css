@@ -1268,7 +1268,10 @@ section[id] { scroll-margin-top: 88px; }
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
   }
-  .compare__wrap .compare { border: 0; border-radius: 0; }
+  /* overflow:hidden on the table creates a scroll container that breaks
+     position:sticky on the cells. Move the rounded clipping to the wrap and
+     let the table overflow visibly so cells stick to .compare__wrap instead. */
+  .compare__wrap .compare { border: 0; border-radius: 0; overflow: visible; }
 
   /* Shrink the whole table so far less scrolling is needed */
   .compare { min-width: 540px; }
