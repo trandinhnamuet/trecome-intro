@@ -1294,8 +1294,15 @@ section[id] { scroll-margin-top: 88px; }
   .compare__header th:first-child { background: var(--bg-soft); z-index: 3; }
   .compare__row:hover td:first-child { background: var(--bg-soft); }
 
-  /* Keep group labels pinned too as you scroll sideways */
-  .compare__group td { position: sticky; left: 0; }
+  /* Group labels span the full row, so the cell itself has no offset room to
+     stick within its containing block. Pin the inner label span instead. */
+  .compare__group td { padding-left: 0; padding-right: 0; }
+  .compare__group td .compare__group-label {
+    position: sticky;
+    left: 0;
+    display: inline-block;
+    padding-left: 12px;
+  }
 
   /* Snap each plan column to the left edge for a tidy scroll */
   .compare__header th:not(:first-child) { scroll-snap-align: start; }

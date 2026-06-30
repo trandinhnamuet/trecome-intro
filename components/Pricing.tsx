@@ -295,7 +295,9 @@ export default function Pricing() {
                 {CMP_GROUPS.map((g, gi) => (
                   <Fragment key={gi}>
                     <tr className="compare__group">
-                      <td colSpan={5}>{t(g.label)}</td>
+                      <td colSpan={5}>
+                        <span className="compare__group-label">{t(g.label)}</span>
+                      </td>
                     </tr>
                     {g.rows.map((row, ri) => (
                       <tr key={ri} className="compare__row">
