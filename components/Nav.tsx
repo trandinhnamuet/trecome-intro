@@ -28,7 +28,7 @@ export default function Nav() {
     <header className={'nav' + (scrolled ? ' scrolled' : '')}>
       <div className="container nav__inner">
         <a href="#top" className="nav__brand">
-          <img src="/assets/logo.png" alt="Trecome" className="nav__logo" />
+          <img src="/assets/logo-small.png" alt="Trecome" className="nav__logo" />
         </a>
         <nav className="nav__menu">
           {items.map(([id, label]) => (
@@ -88,9 +88,31 @@ export default function Nav() {
             {label}
           </a>
         ))}
-        <a href="#contact" onClick={() => setOpen(false)}>
+        <a
+          href="#contact"
+          className="mobile-menu__cta"
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(false);
+            openModal();
+          }}
+        >
           {t('nav.cta')} →
         </a>
+        <div className="lang mobile-menu__lang" role="group" aria-label="Language">
+          <button
+            className={lang === 'vi' ? 'on' : ''}
+            onClick={() => setLang('vi')}
+          >
+            VI
+          </button>
+          <button
+            className={lang === 'en' ? 'on' : ''}
+            onClick={() => setLang('en')}
+          >
+            EN
+          </button>
+        </div>
       </div>
     </header>
   );

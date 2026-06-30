@@ -236,8 +236,9 @@ section[id] { scroll-margin-top: 88px; }
   gap: 12px;
 }
 .nav__logo {
-  height: 135px;
+  height: 56px;
   width: auto;
+  display: block;
 }
 .nav__menu {
   display: flex;
@@ -299,14 +300,18 @@ section[id] { scroll-margin-top: 88px; }
   .nav__menu { display: none; }
   .nav__burger { display: inline-flex; }
   .nav__inner { height: 72px; }
-  .nav__logo { height: 104px; }
+  .nav__logo { height: 44px; }
   .mobile-menu { inset: 72px 0 0 0; }
 }
 @media (max-width: 560px) {
-  .nav__right .btn--primary { display: none; }
+  /* Top bar stays clean: logo + compact CTA + burger. Lang moves into the menu. */
+  .nav__right .lang { display: none; }
   .nav__inner { height: 60px; }
-  .nav__logo { height: 76px; }
+  .nav__logo { height: 36px; }
   .mobile-menu { inset: 60px 0 0 0; }
+  .nav__right { gap: 8px; }
+  .nav__right .btn--primary { padding: 8px 12px; font-size: 13px; }
+  .nav__right .btn--primary .arr { display: none; }
 }
 
 .mobile-menu {
@@ -334,6 +339,22 @@ section[id] { scroll-margin-top: 88px; }
   padding: 14px 0;
   border-bottom: 1px solid var(--line-2);
 }
+.mobile-menu .mobile-menu__cta {
+  margin-top: 20px;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: var(--r-lg, 14px);
+  background: var(--blue);
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+.mobile-menu .mobile-menu__lang {
+  margin-top: 20px;
+  align-self: start;
+  font-size: 15px;
+}
+.mobile-menu .mobile-menu__lang button { padding: 10px 18px; }
 
 /* ============================================
    HERO
@@ -1231,8 +1252,46 @@ section[id] { scroll-margin-top: 88px; }
 .compare__row .no { color: var(--muted-2); }
 .compare__row .val { font-family: var(--f-mono); font-size: 13px; font-weight: 500; color: var(--ink); }
 @media (max-width: 900px) {
-  .compare__wrap { overflow-x: auto; }
-  .compare { min-width: 800px; }
+  .compare__wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;   /* momentum scroll on iOS */
+    scroll-snap-type: x proximity;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+  }
+  .compare__wrap .compare { border: 0; border-radius: 0; }
+
+  /* Shrink the whole table so far less scrolling is needed */
+  .compare { min-width: 540px; }
+  .compare__col-feat { width: 132px; }
+  .compare__header th { padding: 14px 10px; font-size: 13px; }
+  .compare__header th:first-child { font-size: 10px; letter-spacing: 0.08em; }
+  .compare__group td { padding: 10px 12px; font-size: 10px; }
+  .compare__row td { padding: 12px 10px; font-size: 13px; }
+  .compare__row .val { font-size: 12px; }
+
+  /* Freeze the feature-name column while plan columns scroll */
+  .compare__header th:first-child,
+  .compare__row td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    box-shadow: 1px 0 0 var(--line);   /* divider that stays put */
+  }
+  .compare__header th:first-child { background: var(--bg-soft); z-index: 3; }
+  .compare__row:hover td:first-child { background: var(--bg-soft); }
+
+  /* Keep group labels pinned too as you scroll sideways */
+  .compare__group td { position: sticky; left: 0; }
+
+  /* Snap each plan column to the left edge for a tidy scroll */
+  .compare__header th:not(:first-child) { scroll-snap-align: start; }
+}
+@media (max-width: 560px) {
+  .compare { min-width: 480px; }
+  .compare__col-feat { width: 120px; }
+  .compare__row td { padding: 11px 8px; }
 }
 
 /* ============================================
