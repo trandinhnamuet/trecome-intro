@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/lib/I18nContext';
 import { useModal } from '@/lib/ModalContext';
 
@@ -7,11 +7,22 @@ export default function Nav() {
   const { t, lang, setLang } = useI18n();
   const { openModal } = useModal();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      // Hide when scrolling down (past the header), reveal when scrolling up
+      // or near the top.
+      if (y < 100) setHidden(false);
+      else if (y > lastY.current + 6) setHidden(true);
+      else if (y < lastY.current - 6) setHidden(false);
+      lastY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -25,10 +36,16 @@ export default function Nav() {
   ];
 
   return (
-    <header className={'nav' + (scrolled ? ' scrolled' : '')}>
+    <header
+      className={
+        'nav' +
+        (scrolled ? ' scrolled' : '') +
+        (hidden && !open ? ' nav--hidden' : '')
+      }
+    >
       <div className="container nav__inner">
         <a href="#top" className="nav__brand">
-          <img src="/assets/logo-small.png" alt="Trecome" className="nav__logo" />
+          <img src="/assets/logo-trim.png" alt="Trecome" className="nav__logo" />
         </a>
         <nav className="nav__menu">
           {items.map(([id, label]) => (
