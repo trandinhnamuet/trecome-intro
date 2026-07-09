@@ -1723,6 +1723,9 @@ section[id] { scroll-margin-top: 88px; }
 
 /* ============================================
    STICKY CHAT BUTTON (Messenger)
+   Circle by default; expands into a pill with label on hover/focus.
+   Padding (17px each side) is sized so collapsed width == 56px exactly
+   (17 + 22px icon + 17), so the icon sits centered with no extra CSS.
    ============================================ */
 .chat-fab {
   position: fixed;
@@ -1731,37 +1734,62 @@ section[id] { scroll-margin-top: 88px; }
   z-index: 70;   /* above nav (60), below modal (90) & toast (100) */
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  border-radius: var(--r-pill);
+  height: 56px;
+  min-width: 56px;
+  max-width: 56px;
+  padding: 0 17px;
+  border-radius: 999px;
   background: var(--blue);
   color: #fff;
   font-size: 15px;
   font-weight: 600;
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
   box-shadow: 0 10px 28px rgba(10,102,255,.35), 0 2px 8px rgba(10,10,10,.12);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.chat-fab:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(10,102,255,.42), 0 4px 12px rgba(10,10,10,.14);
+  transition: max-width .4s cubic-bezier(.16,1,.3,1), transform .2s ease, box-shadow .2s ease;
 }
 .chat-fab__ic { flex: 0 0 auto; }
+.chat-fab__label {
+  flex: 0 0 auto;
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width .4s cubic-bezier(.16,1,.3,1), margin-left .4s cubic-bezier(.16,1,.3,1), opacity .25s ease;
+}
 
-/* Phones: collapse to an icon-only circle so it doesn't cover content */
-@media (max-width: 560px) {
-  .chat-fab {
-    right: 16px;
-    bottom: 16px;
-    padding: 0;
-    width: 56px;
-    height: 56px;
-    justify-content: center;
+/* Expand on hover -- only for devices with a real pointer, so a tap on
+   touchscreens doesn't get stuck in a "sticky hover" expanded state. */
+@media (hover: hover) and (pointer: fine) {
+  .chat-fab:hover {
+    max-width: 320px;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(10,102,255,.42), 0 4px 12px rgba(10,10,10,.14);
   }
-  .chat-fab__label { display: none; }
+  .chat-fab:hover .chat-fab__label {
+    max-width: 220px;
+    margin-left: 10px;
+    opacity: 1;
+  }
+}
+/* Keyboard focus always expands, regardless of pointer type */
+.chat-fab:focus-visible {
+  max-width: 320px;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.chat-fab:focus-visible .chat-fab__label {
+  max-width: 220px;
+  margin-left: 10px;
+  opacity: 1;
+}
+
+@media (max-width: 560px) {
+  .chat-fab { right: 16px; bottom: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .chat-fab { transition: none; }
+  .chat-fab, .chat-fab__label { transition: none; }
   .chat-fab:hover { transform: none; }
 }
 
