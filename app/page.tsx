@@ -1,7 +1,7 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Marquee from '@/components/Marquee';
-import Stats from '@/components/Stats';
+import MarketData from '@/components/MarketData';
 import Process from '@/components/Process';
 import Services from '@/components/Services';
 import Pricing from '@/components/Pricing';
@@ -18,7 +18,8 @@ export default function Home() {
       <Nav />
       <Hero />
       <Marquee />
-      <Stats />
+      {/* <Stats /> — thay bằng section số liệu thị trường TMĐT */}
+      <MarketData />
       <Process />
       <Services />
       <Pricing />
