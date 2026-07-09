@@ -471,18 +471,21 @@ section[id] { scroll-margin-top: 88px; }
   inset: 2%;   /* thinner gutter -> larger photo circle */
   border-radius: 50%;
   overflow: hidden;
+  background: #fff;   /* fills the empty area around the inscribed image */
   box-shadow: 0 32px 80px rgba(10, 102, 255, .18), 0 12px 32px rgba(10, 10, 10, .08);
   animation: photoFloat 6s ease-in-out infinite;
 }
-/* Slides stack on top of each other and cross-fade every 4s.
-   object-fit: cover crops each image into the circle regardless of its ratio. */
+/* Slides stack and cross-fade every 4s. Each image is sized (via JS onLoad)
+   so its diagonal equals the circle diameter -> the whole image shows, no crop.
+   The pre-JS fallback (max 100%) keeps it fully visible too. */
 .hero-photo__slide {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
   opacity: 0;
   transition: opacity .8s ease;
