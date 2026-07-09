@@ -1,9 +1,27 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/I18nContext';
 import { useModal } from '@/lib/ModalContext';
 
+const HERO_SLIDES = [
+  '/hero-slide/1.png',
+  '/hero-slide/2.jpg',
+  '/hero-slide/3.png',
+];
+const SLIDE_MS = 4000;
+
 function HeroDashboard() {
   const { t } = useI18n();
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setActive((i) => (i + 1) % HERO_SLIDES.length),
+      SLIDE_MS
+    );
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="hero__visual">
       <div className="hero-photo">
@@ -11,7 +29,18 @@ function HeroDashboard() {
         <div className="hero-photo__ring-3"></div>
         <div className="hero-photo__ring-2"></div>
         <div className="hero-photo__frame">
-          <img src="/assets/hero.png" alt="Trecome team at work" />
+          {HERO_SLIDES.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt={i === 0 ? 'Trecome team at work' : ''}
+              aria-hidden={i !== 0}
+              className={
+                'hero-photo__slide' + (i === active ? ' is-active' : '')
+              }
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+          ))}
         </div>
         <div className="hero-photo__ring"></div>
         <div className="hero-photo__dot hero-photo__dot--1"></div>
