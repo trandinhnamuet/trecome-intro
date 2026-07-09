@@ -1718,6 +1718,50 @@ section[id] { scroll-margin-top: 88px; }
   font-size: 14px;
 }
 
+/* ============================================
+   STICKY CHAT BUTTON (Messenger)
+   ============================================ */
+.chat-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 70;   /* above nav (60), below modal (90) & toast (100) */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: var(--r-pill);
+  background: var(--blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 10px 28px rgba(10,102,255,.35), 0 2px 8px rgba(10,10,10,.12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.chat-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(10,102,255,.42), 0 4px 12px rgba(10,10,10,.14);
+}
+.chat-fab__ic { flex: 0 0 auto; }
+
+/* Phones: collapse to an icon-only circle so it doesn't cover content */
+@media (max-width: 560px) {
+  .chat-fab {
+    right: 16px;
+    bottom: 16px;
+    padding: 0;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+  }
+  .chat-fab__label { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-fab { transition: none; }
+  .chat-fab:hover { transform: none; }
+}
+
 /* Toast for form success */
 .toast {
   position: fixed;

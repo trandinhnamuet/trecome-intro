@@ -3,6 +3,7 @@ import './globals.css';
 import { I18nProvider } from '@/lib/I18nContext';
 import { ModalProvider } from '@/lib/ModalContext';
 import ContactModal from '@/components/ContactModal';
+import ChatButton from '@/components/ChatButton';
 import Toast from '@/components/Toast';
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function RootLayout({
           <ModalProvider>
             {children}
             <ContactModal />
+            <ChatButton />
             <Toast />
           </ModalProvider>
         </I18nProvider>

@@ -13,6 +13,7 @@ export const i18nData: Record<Lang, I18nDict> = {
     "nav.blog": "Tin tức",
     "nav.faq": "FAQ",
     "nav.cta": "Bắt đầu ngay",
+    "chat.cta": "Chat với chúng tôi ngay",
     "nav.contact": "Liên hệ",
 
     /* Hero */
@@ -54,7 +55,7 @@ export const i18nData: Record<Lang, I18nDict> = {
 
     /* Process */
     "process.eyebrow": "QUY TRÌNH 6 BƯỚC",
-    "process.title": "Một quy trình. Sáu giai đoạn. Không bỏ sót gì.",
+    "process.title": "Một quy trình. Sáu giai đoạn.",
     "process.subtitle": "Từ buổi gặp đầu tiên đến khi bạn tự vận hành được — chúng tôi đi cùng bạn từng bước.",
 
     "process.1.title": "Tìm hiểu khách hàng & Phân tích",
@@ -302,6 +303,7 @@ export const i18nData: Record<Lang, I18nDict> = {
     "nav.blog": "Blog",
     "nav.faq": "FAQ",
     "nav.cta": "Get started",
+    "chat.cta": "Chat with us now",
     "nav.contact": "Contact",
 
     "hero.eyebrow": "E2E E-COMMERCE OPERATION",
@@ -339,7 +341,7 @@ export const i18nData: Record<Lang, I18nDict> = {
     "stats.4.desc": "Renewed or upgraded to a higher tier",
 
     "process.eyebrow": "6-STEP PROCESS",
-    "process.title": "One process. Six stages. Nothing falls through.",
+    "process.title": "One process. Six stages.",
     "process.subtitle": "From the first call to self-sufficiency — we walk every step with you.",
     "process.1.title": "Discovery & Analysis",
     "process.1.desc": "Understand your product, COGS, and goals. Scan competitors on marketplaces, lock the right channel (Shopee / TikTok Shop / Lazada) and hero products.",
