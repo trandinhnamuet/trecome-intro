@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { I18nProvider } from '@/lib/I18nContext';
-import { ModalProvider } from '@/lib/ModalContext';
-import ContactModal from '@/components/ContactModal';
-import ChatButton from '@/components/ChatButton';
-import Toast from '@/components/Toast';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 export const metadata: Metadata = {
   title: 'Trecome — E2E E-Commerce Operation',
@@ -32,14 +29,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <I18nProvider>
-          <ModalProvider>
-            {children}
-            <ContactModal />
-            <ChatButton />
-            <Toast />
-          </ModalProvider>
-        </I18nProvider>
+        {children}
+        {/* Hai lớp đo song song: GA4 cho chân dung người dùng đầy đủ, Vercel
+            Analytics đo phía edge nên không bị ad-blocker chặn — dùng để biết
+            GA4 đang hụt bao nhiêu phần trăm. */}
+        <GoogleAnalytics />
+        <VercelAnalytics />
       </body>
     </html>
   );

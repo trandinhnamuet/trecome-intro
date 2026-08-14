@@ -1,6 +1,7 @@
 'use client';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { useI18n } from '@/lib/I18nContext';
+import { trackEvent } from '@/lib/gtag';
 
 interface ContactFormProps {
   defaultPlan?: string;
@@ -57,6 +58,8 @@ export default function ContactForm({
       });
 
       if (response.ok) {
+        // Conversion: cho phép đối chiếu traffic với số lead thực tế trong GA4.
+        trackEvent('generate_lead', { plan: data.plan || 'unspecified' });
         setData({
           name: '',
           email: '',
