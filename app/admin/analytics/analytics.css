@@ -436,6 +436,20 @@
   margin-bottom: 20px;
 }
 
+/* Thông báo giải thích, không phải lỗi — dùng tông xanh thương hiệu. */
+.an-note {
+  background: var(--blue-tint);
+  border: 1px solid var(--blue-100);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  color: var(--ink-3);
+  font-size: 13.5px;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.an-note strong { color: var(--blue-700); }
+
 .an-skeleton {
   background: linear-gradient(90deg, var(--line-2) 25%, #f7f7f7 50%, var(--line-2) 75%);
   background-size: 200% 100%;
