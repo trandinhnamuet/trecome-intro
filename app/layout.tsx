@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import VisitTracker from '@/components/VisitTracker';
 
 export const metadata: Metadata = {
   title: 'Trecome — E2E E-Commerce Operation',
@@ -29,9 +30,11 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {/* Site tự host trên VPS nên bỏ Vercel Analytics. Muốn đối chiếu phần
-            GA4 bị ad-blocker chặn thì đếm từ access log của nginx. */}
+        {/* Hai lớp đo song song: GA4 cho bức tranh tổng hợp, VisitTracker ghi
+            từng lượt kèm IP và visitor ID vào DB của mình — thứ GA4 không cho,
+            và không bị ad-blocker chặn vì beacon về ngay domain này. */}
         <GoogleAnalytics />
+        <VisitTracker />
       </body>
     </html>
   );
