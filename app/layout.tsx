@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 export const metadata: Metadata = {
@@ -30,11 +29,9 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {/* Hai lớp đo song song: GA4 cho chân dung người dùng đầy đủ, Vercel
-            Analytics đo phía edge nên không bị ad-blocker chặn — dùng để biết
-            GA4 đang hụt bao nhiêu phần trăm. */}
+        {/* Site tự host trên VPS nên bỏ Vercel Analytics. Muốn đối chiếu phần
+            GA4 bị ad-blocker chặn thì đếm từ access log của nginx. */}
         <GoogleAnalytics />
-        <VercelAnalytics />
       </body>
     </html>
   );

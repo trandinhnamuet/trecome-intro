@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
     "googleapis": "^172.0.0",
     "next": "16.2.6",
     "nodemailer": "^8.0.9",
