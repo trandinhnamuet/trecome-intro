@@ -9,6 +9,22 @@ site cùng hưởng. Vì sao không cùng nhánh: nội dung hai site không có
 dùng chung, gộp vào một nhánh thì mỗi lần build phải mang theo nội dung của site
 kia.
 
+## Nhánh nào sửa gì
+
+Hai nhánh phát triển **độc lập**, không merge qua lại:
+
+| Nhánh | Site | Sửa những gì |
+|---|---|---|
+| `main` | www.trecome.vn | nội dung TMĐT, và mọi thứ dùng chung: `app/admin/*`, `app/api/*`, `lib/visits.ts`, `lib/email.ts`, `lib/sheets.ts`, `app/globals.css` |
+| `tax` | tax.trecome.vn | chỉ nội dung kế toán: `lib/i18n.ts`, `lib/tax-policy.ts`, các component của trang, `docs/trang-dich-vu-ke-toan.md` |
+
+**Trước khi commit, xem đang đứng ở nhánh nào.** Ngày 2026-08-28 đã có một lần
+sửa `app/admin/*` và `lib/visits.ts` trong lúc đang checkout `tax`, commit
+`83ec72b` — phải rebase gỡ ra khỏi `tax` rồi làm lại trên `main` (`e7a63cf`).
+
+Sửa phần dùng chung thì làm trên `main`, rồi cherry-pick sang `tax` đúng commit
+đó — đừng merge cả nhánh, vì nội dung hai site xung đột toàn bộ.
+
 ## Nội dung lấy từ đâu
 
 Hai file gốc do khách cung cấp, để trong thư mục `Tài liệu kế toán/`
@@ -50,6 +66,7 @@ bản của designer rồi ghi đè đúng đường dẫn này.
 
 ## Deploy — VPS `103.28.33.163`
 
+**Đã chạy thật ngày 2026-08-28**, đang online tại https://tax.trecome.vn.
 Chạy song song với trecome.vn trên cùng máy, tách bằng port và tên app pm2.
 
 | | trecome.vn | tax.trecome.vn |
@@ -58,46 +75,70 @@ Chạy song song với trecome.vn trên cùng máy, tách bằng port và tên a
 | Nhánh | `main` | `tax` |
 | Port | 3006 | 3007 |
 | pm2 | `trecome-nextjs` | `trecome-tax` |
+| nginx | `/etc/nginx/sites-available/trecome.conf` | `/etc/nginx/sites-available/tax.trecome.conf` |
+| Chứng chỉ | `trecome.vn` (kèm 3 domain phụ) | `tax.trecome.vn`, hết hạn 2026-11-26 |
 | `STATS_SITE` | `trecome` | `trecome-tax` |
 
-Tên miền `tax.trecome.vn` đã trỏ A record về `103.28.33.163` trên Mắt Bão.
+`pm2 save` đã chạy và `pm2-root.service` đang enabled, nên app tự lên lại sau
+khi reboot. `certbot.timer` enabled, `certbot renew --dry-run` cho domain này
+đã pass.
 
-### Lần đầu
+### Biến môi trường
 
-```bash
-ssh root@103.28.33.163
-git clone -b tax https://github.com/trandinhnamuet/trecome-intro.git /root/trecome-tax
-cd /root/trecome-tax
-cp /root/trecome-nextjs/.env.local .           # dùng chung SMTP, DB, service account
-nano .env.local                                # xem bảng biến bên dưới
-npm ci
-npm run build
-pm2 start npm --name trecome-tax -- start -- -p 3007
-pm2 save
-```
-
-Biến phải sửa lại sau khi copy `.env.local`:
+`.env.local` copy từ `/root/trecome-nextjs/.env.local` rồi sửa ba biến:
 
 | Biến | Giá trị | Vì sao |
 |---|---|---|
 | `STATS_SITE` | `trecome-tax` | tách lượt truy cập khỏi trecome.vn trong bảng `visits` |
-| `NEXT_PUBLIC_GA_ID` | property GA4 riêng của tax.trecome.vn | để chung sẽ trộn số liệu hai site; **nhúng lúc build**, đổi thì phải build lại |
-| `GA_PROPERTY_ID` | property ID tương ứng | `/admin/analytics` đọc đúng property |
+| `NEXT_PUBLIC_GA_ID` | **để trống** | xem bên dưới |
+| `GA_PROPERTY_ID` | **để trống** | property tương ứng cũng chưa có |
 
-Các biến còn lại (`SMTP_*`, `CONTACT_EMAIL`, `GA_SERVICE_ACCOUNT_KEY`,
-`ADMIN_PASSWORD`, `STATS_DB_*`) dùng chung được, giữ nguyên.
+Các biến còn lại (`SMTP_*`, `CONTACT_EMAIL`, `GOOGLE_*`, `GA_SERVICE_ACCOUNT_KEY`,
+`ADMIN_PASSWORD`, `STATS_DB_*`) dùng chung, giữ nguyên.
 
-Nếu chưa tạo GA property riêng thì cứ để trống hai biến GA — trang vẫn chạy,
-`VisitTracker` vẫn ghi lượt truy cập vào DB, chỉ khu `/admin/analytics` là trống.
+> **Hai biến GA đang để trống có chủ đích.** Nếu để nguyên ID của trecome.vn thì
+> lượt truy cập hai site trộn vào cùng một property, và GA **không cho tách lại
+> về sau** — dữ liệu hỏng là hỏng vĩnh viễn. Để trống thì chỉ mất GA cho tới khi
+> có property riêng, còn lượt truy cập vẫn được `VisitTracker` ghi đủ vào bảng
+> `visits` với `site = 'trecome-tax'`, xem tại `/admin/visitors`.
+>
+> Khi đã tạo property GA4 riêng cho tax.trecome.vn: điền hai biến rồi
+> **build lại** — `NEXT_PUBLIC_GA_ID` nhúng vào bundle lúc build, restart không đủ.
+
+### Dựng lại từ đầu (nếu phải làm lại trên máy khác)
+
+```bash
+git clone -b tax https://github.com/trandinhnamuet/trecome-intro.git /root/trecome-tax
+cd /root/trecome-tax
+cp /root/trecome-nextjs/.env.local .env.local && chmod 600 .env.local
+sed -i 's/^STATS_SITE=.*/STATS_SITE=trecome-tax/' .env.local
+sed -i 's/^NEXT_PUBLIC_GA_ID=.*/NEXT_PUBLIC_GA_ID=/' .env.local
+sed -i 's/^GA_PROPERTY_ID=.*/GA_PROPERTY_ID=/' .env.local
+npm ci
+npm run build
+# gọi thẳng binary của next, đúng cách trecome-nextjs đang chạy
+pm2 start node_modules/next/dist/bin/next --name trecome-tax \
+    --interpreter /usr/bin/node -- start -p 3007
+pm2 save
+```
 
 ### nginx
 
-`/etc/nginx/sites-available/tax.trecome.vn`:
+`/etc/nginx/sites-available/tax.trecome.conf` — khối SSL do certbot tự thêm:
 
 ```nginx
 server {
     listen 80;
+    listen [::]:80;
     server_name tax.trecome.vn;
+
+    location ~* ^/.well-known/acme-challenge/ {
+        root /opt/www/well_known;
+        try_files $uri =404;
+        allow all;
+    }
+
+    client_max_body_size 20M;
 
     location / {
         proxy_pass http://127.0.0.1:3007;
@@ -105,7 +146,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
-        # VisitTracker lấy IP từ X-Real-IP, không lấy phần tử đầu X-Forwarded-For
+        # VisitTracker đọc IP từ X-Real-IP, không lấy phần tử đầu X-Forwarded-For
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
@@ -115,9 +156,9 @@ server {
 ```
 
 ```bash
-ln -s /etc/nginx/sites-available/tax.trecome.vn /etc/nginx/sites-enabled/
+ln -sfn /etc/nginx/sites-available/tax.trecome.conf /etc/nginx/sites-enabled/
 nginx -t && systemctl reload nginx
-certbot --nginx -d tax.trecome.vn
+certbot --nginx -d tax.trecome.vn --redirect
 ```
 
 ### Deploy lại sau khi sửa code
@@ -131,6 +172,23 @@ npm run build
 pm2 restart trecome-tax --update-env
 ```
 
-> Máy chỉ có 3.8GB RAM và giờ chạy thêm một app Node nữa. Swap 2GB
-> (`/swapfile`) là thứ giữ cho `next build` không bị OOM — đừng xoá. Nếu build
-> vẫn chết, dừng tạm `trecome-nextjs` trong lúc build rồi bật lại.
+> Máy có 3.8GB RAM và giờ chạy 4 app Node. Lúc deploy lần đầu, `next build` chạy
+> lọt với ~2.6GB available nên không cần đụng gì. Swap 2GB (`/swapfile`) là thứ
+> giữ cho build không bị OOM — đừng xoá. Nếu về sau build chết vì hết RAM, dừng
+> tạm `trecome-nextjs` trong lúc build rồi bật lại.
+
+### Đã kiểm sau khi deploy
+
+| Kiểm | Kết quả |
+|---|---|
+| `https://tax.trecome.vn` | 200 |
+| `http://` → `https://` | 301 |
+| `POST /api/track` | 204, ghi vào `visits` với `site = 'trecome-tax'` |
+| `POST /api/contact` (payload rỗng) | 400 + thông báo validate — route sống |
+| GA script | **không** nhúng khi `NEXT_PUBLIC_GA_ID` trống, đúng như mong đợi |
+| `robots.txt` | chặn `/admin` và `/api` |
+| trecome.vn, lonfantafc.com | vẫn 200, không bị ảnh hưởng |
+
+Form liên hệ mới chỉ kiểm tới mức route phản hồi đúng — **chưa gửi thử một lead
+thật**, vì làm vậy sẽ bắn email vào hộp thư và thêm một dòng rác vào Google
+Sheet. Nên tự gửi thử một lần rồi xoá dòng đó.
