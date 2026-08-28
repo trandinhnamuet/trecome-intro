@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { Overview, RangeKey } from '@/lib/ga';
-import { BarList, Kpi, axisTick, dayLabel, duration, nf } from '@/components/admin/StatsUi';
+import { BarList, Kpi, axisTick, dayLabel, duration, nf, timeFmt } from '@/components/admin/StatsUi';
 import './analytics.css';
 
 /* Nhãn khoảng thời gian khai báo lại ở client: lib/ga.ts chạy trên node:crypto
@@ -191,7 +191,7 @@ export default function AnalyticsDashboard() {
             <h1>Traffic trecome.vn</h1>
             <div className="an-sub">
               Nguồn: Google Analytics 4
-              {data && ` · cập nhật ${new Date(data.updatedAt).toLocaleTimeString('vi-VN')}`}
+              {data && ` · cập nhật ${timeFmt.format(new Date(data.updatedAt))}`}
             </div>
           </div>
           <div className="an-head-actions">
