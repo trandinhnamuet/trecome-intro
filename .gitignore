@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Tài liệu nội bộ của khách (bảng giá, hồ sơ) — không đưa lên repo
+Tài liệu kế toán/

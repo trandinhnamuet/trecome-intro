@@ -125,11 +125,19 @@ export default function ContactForm({
         <label>{t('cta.plan')}</label>
         <select value={data.plan} onChange={set('plan')}>
           <option value="">—</option>
-          <option value="buildup">{t('cta.plan.opt1')}</option>
-          <option value="starter">{t('cta.plan.opt2')}</option>
-          <option value="growup">{t('cta.plan.opt3')}</option>
-          <option value="scale">{t('cta.plan.opt4')}</option>
-          <option value="unknown">{t('cta.plan.opt5')}</option>
+          <optgroup label={t('cta.plan.hkd')}>
+            <option value="hkd1">{t('plan.hkd1.name')} — {t('plan.hkd1.tag')}</option>
+            <option value="hkd2">{t('plan.hkd2.name')} — {t('plan.hkd2.tag')}</option>
+            <option value="hkd3">{t('plan.hkd3.name')} — {t('plan.hkd3.tag')}</option>
+            <option value="hkd4">{t('plan.hkd4.name')} — {t('plan.hkd4.tag')}</option>
+          </optgroup>
+          <optgroup label={t('cta.plan.dn')}>
+            <option value="starter">{t('plan.starter.name')} — {t('plan.starter.tag')}</option>
+            <option value="standard">{t('plan.standard.name')} — {t('plan.standard.tag')}</option>
+            <option value="professional">{t('plan.professional.name')} — {t('plan.professional.tag')}</option>
+            <option value="enterprise">{t('plan.enterprise.name')} — {t('plan.enterprise.tag')}</option>
+          </optgroup>
+          <option value="unknown">{t('cta.plan.unknown')}</option>
         </select>
       </div>
       <div className="field">

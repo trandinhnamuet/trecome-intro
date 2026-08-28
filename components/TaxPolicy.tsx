@@ -2,13 +2,13 @@
 import { useState, useEffect, useRef, RefObject } from 'react';
 import { useI18n } from '@/lib/I18nContext';
 import {
-  MARKET_HEAD,
-  MARKET_STATS,
-  TOP_CATEGORIES,
-  MARKET_HIGHLIGHTS,
-  MARKET_SOURCE,
+  POLICY_HEAD,
+  POLICY_STATS,
+  FILING_PERIODS,
+  POLICY_HIGHLIGHTS,
+  POLICY_SOURCE,
   type Lang,
-} from '@/lib/market-data';
+} from '@/lib/tax-policy';
 
 function useInView<T extends Element>(ref: RefObject<T | null>) {
   const [v, setV] = useState(false);
@@ -64,7 +64,7 @@ function CountUp({
   );
 }
 
-export default function MarketData() {
+export default function TaxPolicy() {
   const { lang } = useI18n();
   const L = (o: Record<Lang, string>) => o[lang];
 
@@ -88,15 +88,15 @@ export default function MarketData() {
                   boxShadow: '0 0 0 4px rgba(91,163,255,.15)',
                 }}
               ></span>
-              {L(MARKET_HEAD.eyebrow)}
+              {L(POLICY_HEAD.eyebrow)}
             </span>
-            <h2 style={{ marginTop: 16 }}>{L(MARKET_HEAD.title)}</h2>
+            <h2 style={{ marginTop: 16 }}>{L(POLICY_HEAD.title)}</h2>
           </div>
-          <p className="lead">{L(MARKET_HEAD.subtitle)}</p>
+          <p className="lead">{L(POLICY_HEAD.subtitle)}</p>
         </div>
 
         <div className="stats__grid">
-          {MARKET_STATS.map((s, i) => (
+          {POLICY_STATS.map((s, i) => (
             <div className="stat" key={i}>
               <div className="v">
                 {s.prefix}
@@ -111,9 +111,9 @@ export default function MarketData() {
 
         <div className="market__reports">
           <div className="market__card market__card--rank">
-            <h3>{L(TOP_CATEGORIES.title)}</h3>
+            <h3>{L(FILING_PERIODS.title)}</h3>
             <ol className="market__rank">
-              {TOP_CATEGORIES.items.map((it, i) => (
+              {FILING_PERIODS.items.map((it, i) => (
                 <li key={i}>
                   <span className="market__rank-num">{i + 1}</span>
                   <span className="market__rank-name">{L(it.label)}</span>
@@ -124,7 +124,7 @@ export default function MarketData() {
           </div>
 
           <div className="market__highlights">
-            {MARKET_HIGHLIGHTS.map((h, i) => (
+            {POLICY_HIGHLIGHTS.map((h, i) => (
               <div className="market__card market__hl" key={i}>
                 <div className="market__hl-stat">{L(h.stat)}</div>
                 <p className="market__hl-label">{L(h.label)}</p>
@@ -133,7 +133,7 @@ export default function MarketData() {
           </div>
         </div>
 
-        <p className="market__source">{L(MARKET_SOURCE)}</p>
+        <p className="market__source">{L(POLICY_SOURCE)}</p>
       </div>
     </section>
   );

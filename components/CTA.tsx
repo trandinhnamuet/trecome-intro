@@ -46,9 +46,8 @@ export default function CTA() {
                 </div>
                 <div className="row">
                   <span className="ic">✉</span>
-                  <a href="mailto:info@trecome.com.vn">
-                    {t('cta.contact.email')}
-                  </a>
+                  {/* href phải trùng địa chỉ đang hiển thị, và trùng footer */}
+                  <a href="mailto:hi@trecome.vn">{t('cta.contact.email')}</a>
                 </div>
                 <div className="row">
                   <span className="ic">◔</span>

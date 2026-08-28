@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__grid">
           <div className="footer__brand">
-            <img src="/assets/logo-trim.png" alt="Trecome" />
+            <img src="/assets/logo-tax.png" alt="Trecome" />
             <p>{t('footer.tagline')}</p>
           </div>
           <div className="footer__col">
@@ -27,7 +27,7 @@ export default function Footer() {
                 <a href="#services">{t('service.4.title')}</a>
               </li>
               <li>
-                <a href="#pricing">{t('nav.pricing')}</a>
+                <a href="#services">{t('service.5.title')}</a>
               </li>
             </ul>
           </div>
@@ -35,16 +35,19 @@ export default function Footer() {
             <h4>{t('footer.col2')}</h4>
             <ul>
               <li>
+                <a href="#why">{t('nav.why')}</a>
+              </li>
+              <li>
+                <a href="#groups">{t('nav.groups')}</a>
+              </li>
+              <li>
                 <a href="#process">{t('nav.process')}</a>
               </li>
               <li>
-                <a href="#cases">{t('nav.cases')}</a>
+                <a href="#reports">{t('nav.reports')}</a>
               </li>
               <li>
-                <a href="#blog">{t('nav.blog')}</a>
-              </li>
-              <li>
-                <a href="#contact">{t('nav.contact')}</a>
+                <a href="#pricing">{t('nav.pricing')}</a>
               </li>
             </ul>
           </div>
@@ -55,7 +58,7 @@ export default function Footer() {
                 <a href="#faq">{t('nav.faq')}</a>
               </li>
               <li>
-                <a href="#blog">{t('blog.title')}</a>
+                <a href="#contact">{t('nav.contact')}</a>
               </li>
               <li>
                 <a href="mailto:hi@trecome.vn">hi@trecome.vn</a>

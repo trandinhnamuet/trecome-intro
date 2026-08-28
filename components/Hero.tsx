@@ -96,10 +96,10 @@ export default function Hero() {
   const { t } = useI18n();
   const { openModal } = useModal();
   const avatars: [string, string][] = [
-    ['#0A66FF', 'S'],
-    ['#FF6B35', 'T'],
-    ['#7C3AED', 'L'],
-    ['#EAB308', 'K'],
+    ['#0A66FF', 'T'],
+    ['#FF6B35', 'S'],
+    ['#7C3AED', 'D'],
+    ['#EAB308', 'X'],
     ['#22C55E', '+'],
   ];
 

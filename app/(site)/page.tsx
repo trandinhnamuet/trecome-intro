@@ -1,13 +1,13 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Marquee from '@/components/Marquee';
-import MarketData from '@/components/MarketData';
+import Why from '@/components/Why';
+import TaxPolicy from '@/components/TaxPolicy';
+import TaxGroups from '@/components/TaxGroups';
 import Process from '@/components/Process';
 import Services from '@/components/Services';
+import Reports from '@/components/Reports';
 import Pricing from '@/components/Pricing';
-import Cases from '@/components/Cases';
-import Testimonials from '@/components/Testimonials';
-import Blog from '@/components/Blog';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
@@ -18,15 +18,15 @@ export default function Home() {
       <Nav />
       <Hero />
       <Marquee />
-      {/* <Stats /> — thay bằng section số liệu thị trường TMĐT */}
-      <MarketData />
+      <Why />
+      {/* Khu nền tối: chính sách thuế theo nhóm doanh thu */}
+      <TaxPolicy />
+      <TaxGroups />
       <Process />
       <Services />
+      <Reports />
       <Pricing />
-      {/* <Cases /> */}
-      {/* <Testimonials /> */}
-      {/* <Blog /> */}
-      {/* <FAQ /> */}
+      <FAQ />
       <CTA />
       <Footer />
     </>

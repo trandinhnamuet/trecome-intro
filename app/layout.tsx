@@ -4,9 +4,9 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
 import VisitTracker from '@/components/VisitTracker';
 
 export const metadata: Metadata = {
-  title: 'Trecome — E2E E-Commerce Operation',
+  title: 'Trecome Tax — Dịch vụ kế toán & thuế trọn gói',
   description:
-    'Trecome đồng hành cùng các thương hiệu trên hành trình lên sàn TMĐT.',
+    'Dịch vụ kế toán – thuế trọn gói cho doanh nghiệp, hộ kinh doanh và cá nhân kinh doanh: kê khai, sổ sách, quyết toán, báo cáo quản trị và tư vấn thuế.',
 };
 
 export default function RootLayout({

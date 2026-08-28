@@ -17,86 +17,144 @@ interface Feat {
 interface Plan {
   id: string;
   price: number | null;
-  pricePerQ?: number;
   featured: boolean;
   feats: Feat[];
 }
 
-const PLANS: Plan[] = [
+/** Hộ kinh doanh & cá nhân kinh doanh — phí đi theo nhóm doanh thu năm. */
+const PLANS_HKD: Plan[] = [
   {
-    id: 'buildup',
-    price: 3999000,
-    pricePerQ: 3999000 * 3 * 0.9,
+    id: 'hkd1',
+    price: 500000,
     featured: false,
     feats: [
-      { k: 'research', on: true },
-      { k: 'shop', on: true },
-      { k: 'sku', on: '20 SKU' },
-      { k: 'pricetable', on: true },
-      { k: 'ops', on: true },
-      { k: 'mallinfo', on: '4M₫ add-on' },
-      { k: 'listing', on: false },
-      { k: 'campaign', on: false },
-      { k: 'content', on: false },
+      { k: 'declare', on: true },
+      { k: 'taxadvice', on: true },
+      { k: 'deadline', on: true },
+      { k: 'einvoice', on: true },
+      { k: 'freq', on: 'Theo năm' },
+      { k: 'billing', on: 'Thu theo quý' },
+      { k: 'bookkeeping', on: false },
+      { k: 'revreport', on: false },
     ],
   },
   {
-    id: 'starter',
-    price: 7999000,
-    pricePerQ: 7999000 * 3 * 0.9,
-    featured: false,
-    feats: [
-      { k: 'research', on: true },
-      { k: 'shop', on: true },
-      { k: 'sku', on: '30 SKU' },
-      { k: 'listing', on: true },
-      { k: 'campaign', on: true },
-      { k: 'content', on: '2 video/tuần' },
-      { k: 'dataanaly', on: true },
-      { k: 'ads', on: true },
-      { k: 'kam', on: true },
-    ],
-  },
-  {
-    id: 'growup',
-    price: 9999000,
-    pricePerQ: 9999000 * 3 * 0.9,
+    id: 'hkd2',
+    price: 1000000,
     featured: true,
     feats: [
-      { k: 'research', on: true },
-      { k: 'shop', on: true },
-      { k: 'sku', on: '40 SKU' },
-      { k: 'mallapply', on: true },
-      { k: 'listing', on: true },
-      { k: 'campaign', on: true },
-      { k: 'content', on: '5 video/tuần' },
-      { k: 'ads', on: true },
-      { k: 'onboard', on: true },
+      { k: 'declare', on: true },
+      { k: 'taxadvice', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'ledger', on: true },
+      { k: 'invoicereport', on: true },
+      { k: 'freq', on: 'Theo tháng' },
+      { k: 'billing', on: 'Thu theo tháng' },
+      { k: 'revreport', on: true },
     ],
   },
   {
-    id: 'scale',
+    id: 'hkd3',
     price: null,
     featured: false,
     feats: [
-      { k: 'research', on: true },
-      { k: 'shop', on: true },
-      { k: 'sku', on: 'Deal' },
-      { k: 'mallapply', on: true },
-      { k: 'advanced', on: true },
-      { k: 'growth', on: true },
-      { k: 'kol', on: true },
-      { k: 'optimize', on: true },
-      { k: 'onboard', on: true },
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'ledger', on: true },
+      { k: 'fs', on: true },
+      { k: 'revreport', on: true },
+      { k: 'freq', on: 'Theo tháng' },
+      { k: 'billing', on: 'Thu theo tháng' },
+      { k: 'risk', on: true },
+    ],
+  },
+  {
+    id: 'hkd4',
+    price: null,
+    featured: false,
+    feats: [
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'fs', on: true },
+      { k: 'settle', on: true },
+      { k: 'authority', on: true },
+      { k: 'freq', on: 'Theo tháng' },
+      { k: 'billing', on: 'Thu theo tháng' },
+      { k: 'finanaly', on: true },
     ],
   },
 ];
 
+/** Doanh nghiệp — phí đi theo doanh thu tháng. */
+const PLANS_DN: Plan[] = [
+  {
+    id: 'starter',
+    price: 1000000,
+    featured: false,
+    feats: [
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'fs', on: true },
+      { k: 'ledger', on: true },
+      { k: 'invoicereport', on: true },
+      { k: 'settle', on: true },
+      { k: 'revreport', on: false },
+      { k: 'finanaly', on: false },
+    ],
+  },
+  {
+    id: 'standard',
+    price: 1500000,
+    featured: true,
+    feats: [
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'fs', on: true },
+      { k: 'settle', on: true },
+      { k: 'revreport', on: true },
+      { k: 'pl', on: true },
+      { k: 'debt', on: true },
+      { k: 'stock', on: true },
+    ],
+  },
+  {
+    id: 'professional',
+    price: 2000000,
+    featured: false,
+    feats: [
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'fs', on: true },
+      { k: 'revreport', on: true },
+      { k: 'cashflow', on: true },
+      { k: 'finanaly', on: true },
+      { k: 'taxadvice', on: true },
+      { k: 'forecast', on: true },
+    ],
+  },
+  {
+    id: 'enterprise',
+    price: null,
+    featured: false,
+    feats: [
+      { k: 'declare', on: true },
+      { k: 'bookkeeping', on: true },
+      { k: 'finanaly', on: true },
+      { k: 'cfo', on: true },
+      { k: 'kpi', on: true },
+      { k: 'budget', on: true },
+      { k: 'internal', on: true },
+      { k: 'strategy', on: true },
+    ],
+  },
+];
+
+/** Bốn cấp độ dịch vụ dùng làm cột của bảng so sánh phạm vi công việc. */
+const TIERS = ['basic', 'standard', 'business', 'premium'];
+
 interface CmpRow {
   k: string;
   vals: FeatVal[];
-  rowSpan?: number[];  // per-column rowspan
-  skipCol?: boolean[]; // per-column: skip cell (covered by rowspan above)
 }
 interface CmpGroup {
   label: string;
@@ -107,64 +165,65 @@ const CMP_GROUPS: CmpGroup[] = [
   {
     label: 'compare.group.1',
     rows: [
-      { k: 'research', vals: [true, true, true, true] },
-      { k: 'product', vals: [true, true, true, true] },
-      { k: 'pricing', vals: [true, true, true, true] },
-      { k: 'plan', vals: [true, true, true, true] },
+      { k: 'declare', vals: [true, true, true, true] },
+      { k: 'invoicereport', vals: [true, true, true, true] },
+      { k: 'deadline', vals: [true, true, true, true] },
+      { k: 'settle', vals: [true, true, true, true] },
+      { k: 'einvoice', vals: [true, true, true, true] },
+      { k: 'authority', vals: [false, true, true, true] },
     ],
   },
   {
     label: 'compare.group.2',
     rows: [
-      { k: 'shop', vals: [true, true, true, true] },
-      { k: 'sku', vals: ['20 SKU', '30 SKU', '40 SKU', 'Deal'] },
-      { k: 'pricetable', vals: [true, true, true, true] },
-      { k: 'ops', vals: [true, true, true, true] },
+      { k: 'bookkeeping', vals: [false, true, true, true] },
+      { k: 'fs', vals: [true, true, true, true] },
+      { k: 'ledger', vals: [false, true, true, true] },
+      { k: 'invalid', vals: [true, true, true, true] },
+      { k: 'recon', vals: [false, true, true, true] },
     ],
   },
   {
     label: 'compare.group.3',
     rows: [
-      { k: 'mallinfo', vals: ['4M₫', '4M₫', true, true], rowSpan: [2, 2, 1, 1] },
-      { k: 'mallapply', vals: [false, false, true, true], skipCol: [true, true, false, false] },
+      { k: 'revreport', vals: [false, true, true, true] },
+      { k: 'pl', vals: [false, true, true, true] },
+      { k: 'debt', vals: [false, true, true, true] },
+      { k: 'stock', vals: [false, true, true, true] },
+      { k: 'cashflow', vals: [false, false, true, true] },
     ],
   },
   {
     label: 'compare.group.4',
     rows: [
-      { k: 'listing', vals: [false, true, true, true] },
-      { k: 'campaign', vals: [false, true, true, true] },
-      { k: 'content', vals: ['—', '2 video/tuần', '5 video/tuần', 'Deal'] },
-      { k: 'dataanaly', vals: [false, true, true, true] },
-      { k: 'ads', vals: [false, true, true, true] },
-      { k: 'kam', vals: [false, true, true, true] },
-      { k: 'chat', vals: [false, true, true, true] },
-      { k: 'star', vals: [false, true, true, true] },
-      { k: 'locked', vals: [false, true, true, true] },
-      { k: 'shoplock', vals: [false, true, true, true] },
+      { k: 'risk', vals: [false, true, true, true] },
+      { k: 'finanaly', vals: [false, false, true, true] },
+      { k: 'taxadvice', vals: [false, false, true, true] },
+      { k: 'costadvice', vals: [false, false, true, true] },
+      { k: 'forecast', vals: [false, false, true, true] },
     ],
   },
   {
     label: 'compare.group.5',
     rows: [
-      { k: 'checklist', vals: [false, true, true, true] },
-      { k: 'sop', vals: [false, true, true, true] },
-      { k: 'template', vals: [false, true, true, true] },
-      { k: 'docs', vals: [false, true, true, true] },
-      { k: 'report', vals: [false, true, true, true] },
-      { k: 'onboard', vals: [false, false, true, true] },
+      { k: 'ecomdata', vals: [false, true, true, true] },
+      { k: 'platformfee', vals: [false, true, true, true] },
+      { k: 'platformpl', vals: [false, false, true, true] },
     ],
   },
   {
     label: 'compare.group.6',
     rows: [
-      { k: 'advanced', vals: [false, false, false, true] },
-      { k: 'growth', vals: [false, false, false, true] },
-      { k: 'kol', vals: [false, false, false, true] },
-      { k: 'optimize', vals: [false, false, false, true] },
+      { k: 'cfo', vals: [false, false, false, true] },
+      { k: 'kpi', vals: [false, false, false, true] },
+      { k: 'budget', vals: [false, false, false, true] },
+      { k: 'internal', vals: [false, false, false, true] },
+      { k: 'strategy', vals: [false, false, false, true] },
     ],
   },
 ];
+
+const ADDONS = [1, 2, 3, 4];
 
 function renderVal(v: FeatVal): ReactNode {
   if (v === true) return <span className="yes">✓</span>;
@@ -175,7 +234,8 @@ function renderVal(v: FeatVal): ReactNode {
 export default function Pricing() {
   const { t } = useI18n();
   const { openModal } = useModal();
-  const [billing, setBilling] = useState<'month' | 'quarter'>('month');
+  const [segment, setSegment] = useState<'hkd' | 'dn'>('hkd');
+  const plans = segment === 'hkd' ? PLANS_HKD : PLANS_DN;
 
   return (
     <section className="section pricing" id="pricing">
@@ -191,90 +251,134 @@ export default function Pricing() {
 
         <div className="pricing__toggle">
           <button
-            className={billing === 'month' ? 'on' : ''}
-            onClick={() => setBilling('month')}
+            className={segment === 'hkd' ? 'on' : ''}
+            onClick={() => setSegment('hkd')}
           >
-            {t('pricing.month')}
+            {t('pricing.seg.hkd')}
           </button>
           <button
-            className={billing === 'quarter' ? 'on' : ''}
-            onClick={() => setBilling('quarter')}
+            className={segment === 'dn' ? 'on' : ''}
+            onClick={() => setSegment('dn')}
           >
-            {t('pricing.quarter')}
+            {t('pricing.seg.dn')}
           </button>
         </div>
 
         <div className="plans">
-          {PLANS.map((p) => {
-            const displayPrice =
-              p.price == null
-                ? null
-                : billing === 'quarter' && p.pricePerQ
-                ? p.pricePerQ / 3
-                : p.price;
-            return (
-              <div
-                key={p.id}
-                className={'plan' + (p.featured ? ' plan--featured' : '')}
-              >
-                {p.featured && (
-                  <span className="plan__badge">{t('pricing.featured')}</span>
-                )}
-                <div>
-                  <div className="plan__name">{t(`plan.${p.id}.name`)}</div>
-                  <div className="plan__tag">{t(`plan.${p.id}.tag`)}</div>
-                </div>
-                <div className="plan__price">
-                  {displayPrice == null ? (
-                    <div className="v">{t('pricing.contact')}</div>
-                  ) : (
-                    <>
-                      <div className="v">
-                        {fmtVND(Math.round(displayPrice))}
-                        <span style={{ fontSize: 16, marginLeft: 4 }}>₫</span>
-                      </div>
-                      <div className="c">/ {t('pricing.month').toLowerCase()}</div>
-                    </>
-                  )}
-                </div>
-                <ul className="feats">
-                  {p.feats.map((f) => (
-                    <li key={f.k} className={f.on === false ? 'x' : ''}>
-                      {typeof f.on === 'string' ? (
-                        <span>
-                          {t(`feat.${f.k}`)} ·{' '}
-                          <strong style={{ fontWeight: 600 }}>{f.on}</strong>
-                        </span>
-                      ) : (
-                        t(`feat.${f.k}`)
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className={'btn ' + (p.featured ? 'btn--primary' : 'btn--ghost')}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openModal(p.id);
-                  }}
-                >
-                  {p.price == null ? t('pricing.cta.contact') : t('pricing.cta')}{' '}
-                  <span className="arr">→</span>
-                </a>
+          {plans.map((p) => (
+            <div
+              key={p.id}
+              className={'plan' + (p.featured ? ' plan--featured' : '')}
+            >
+              {p.featured && (
+                <span className="plan__badge">{t('pricing.featured')}</span>
+              )}
+              <div>
+                <div className="plan__name">{t('plan.' + p.id + '.name')}</div>
+                <div className="plan__tag">{t('plan.' + p.id + '.tag')}</div>
               </div>
-            );
-          })}
+              <div className="plan__price" style={{ flexWrap: 'wrap' }}>
+                {p.price == null ? (
+                  <div className="v">{t('pricing.contact')}</div>
+                ) : (
+                  <>
+                    {/* width 100% để "Chỉ từ" chiếm trọn một dòng của flex row */}
+                    <div className="c" style={{ width: '100%' }}>
+                      {t('pricing.from')}
+                    </div>
+                    <div className="v">
+                      {fmtVND(p.price)}
+                      <span style={{ fontSize: 16, marginLeft: 4 }}>₫</span>
+                    </div>
+                    <div className="c">/ {t('pricing.per')}</div>
+                  </>
+                )}
+              </div>
+              <ul className="feats">
+                {p.feats.map((f) => (
+                  <li key={f.k} className={f.on === false ? 'x' : ''}>
+                    {typeof f.on === 'string' ? (
+                      <span>
+                        {t('feat.' + f.k)} ·{' '}
+                        <strong style={{ fontWeight: 600 }}>{f.on}</strong>
+                      </span>
+                    ) : (
+                      t('feat.' + f.k)
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#contact"
+                className={'btn ' + (p.featured ? 'btn--primary' : 'btn--ghost')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openModal(p.id);
+                }}
+              >
+                {p.price == null ? t('pricing.cta.contact') : t('pricing.cta')}{' '}
+                <span className="arr">→</span>
+              </a>
+            </div>
+          ))}
         </div>
 
-        {/* Comparison table */}
-        <div style={{ marginTop: 80 }}>
-          <h3
-            className="h-2"
-            style={{ marginBottom: 32, textAlign: 'center' }}
+        {/* Add-on: phần mềm tính riêng, không gộp vào phí dịch vụ */}
+        <div style={{ marginTop: 24 }}>
+          <h3 className="h-2" style={{ textAlign: 'center' }}>
+            {t('pricing.addon.title')}
+          </h3>
+          <p
+            className="lead"
+            style={{
+              textAlign: 'center',
+              margin: '12px auto 32px',
+              maxWidth: 640,
+            }}
           >
+            {t('pricing.addon.subtitle')}
+          </p>
+          <div className="plans" style={{ marginBottom: 0 }}>
+            {ADDONS.map((n) => (
+              <div key={n} className="plan">
+                <div>
+                  <div className="plan__name" style={{ fontSize: 18 }}>
+                    {t('addon.' + n + '.title')}
+                  </div>
+                  <div className="plan__tag">{t('addon.' + n + '.desc')}</div>
+                </div>
+                <div
+                  className="plan__price"
+                  style={{ borderBottom: 0, paddingBottom: 0, marginTop: 'auto' }}
+                >
+                  <div
+                    className="v"
+                    style={{ fontSize: 28, whiteSpace: 'nowrap' }}
+                  >
+                    {t('addon.' + n + '.price')}
+                  </div>
+                  <div className="c">{t('addon.' + n + '.note')}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bảng so sánh bốn cấp độ dịch vụ */}
+        <div style={{ marginTop: 80 }}>
+          <h3 className="h-2" style={{ textAlign: 'center' }}>
             {t('pricing.compare.title')}
           </h3>
+          <p
+            className="lead"
+            style={{
+              textAlign: 'center',
+              margin: '12px auto 32px',
+              maxWidth: 720,
+            }}
+          >
+            {t('pricing.compare.subtitle')}
+          </p>
           <div className="compare__wrap">
             <table className="compare">
               <colgroup>
@@ -284,9 +388,21 @@ export default function Pricing() {
               <thead>
                 <tr className="compare__header">
                   <th>{t('compare.feature')}</th>
-                  {PLANS.map((p) => (
-                    <th key={p.id} className={p.featured ? 'feat' : ''}>
-                      {t(`plan.${p.id}.name`)}
+                  {TIERS.map((id, i) => (
+                    <th key={id} className={i === 2 ? 'feat' : ''}>
+                      {t('tier.' + id + '.name')}
+                      <div
+                        style={{
+                          fontFamily: 'var(--f-body)',
+                          fontSize: 11,
+                          fontWeight: 400,
+                          color: 'var(--muted)',
+                          marginTop: 4,
+                          letterSpacing: 0,
+                        }}
+                      >
+                        {t('tier.' + id + '.tag')}
+                      </div>
                     </th>
                   ))}
                 </tr>
@@ -301,19 +417,12 @@ export default function Pricing() {
                     </tr>
                     {g.rows.map((row, ri) => (
                       <tr key={ri} className="compare__row">
-                        <td>{t(`feat.${row.k}`)}</td>
-                        {row.vals.map((v, vi) => {
-                          if (row.skipCol?.[vi]) return null;
-                          return (
-                            <td
-                              key={vi}
-                              rowSpan={row.rowSpan?.[vi] ?? 1}
-                              className={PLANS[vi].featured ? 'feat' : ''}
-                            >
-                              {renderVal(v)}
-                            </td>
-                          );
-                        })}
+                        <td>{t('feat.' + row.k)}</td>
+                        {row.vals.map((v, vi) => (
+                          <td key={vi} className={vi === 2 ? 'feat' : ''}>
+                            {renderVal(v)}
+                          </td>
+                        ))}
                       </tr>
                     ))}
                   </Fragment>

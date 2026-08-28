@@ -2,25 +2,27 @@
 import { useI18n } from '@/lib/I18nContext';
 
 export default function Marquee() {
-  const { t } = useI18n();
-  const items = [
-    'Shopee',
-    'TikTok Shop',
-    'Lazada',
-    'Tiki',
-    'Amazon',
-    'Shopify',
-    'Sendo',
-  ];
-  const initials: Record<string, string> = {
-    Shopee: 'S',
-    'TikTok Shop': 'T',
-    Lazada: 'L',
-    Tiki: 'K',
-    Amazon: 'A',
-    Shopify: 'P',
-    Sendo: 'D',
-  };
+  const { t, lang } = useI18n();
+  const items =
+    lang === 'vi'
+      ? [
+          'Thương mại',
+          'Sản xuất',
+          'Dịch vụ',
+          'Xây dựng',
+          'Thương mại điện tử',
+          'Y tế',
+          'Giáo dục',
+        ]
+      : [
+          'Trade',
+          'Manufacturing',
+          'Services',
+          'Construction',
+          'E-commerce',
+          'Healthcare',
+          'Education',
+        ];
   return (
     <div className="marquee-wrap">
       <div className="container">
@@ -29,7 +31,7 @@ export default function Marquee() {
       <div className="marquee">
         {[...items, ...items, ...items].map((it, i) => (
           <span key={i} className="item">
-            <span className="b">{initials[it]}</span>
+            <span className="b">{it.charAt(0)}</span>
             {it}
           </span>
         ))}

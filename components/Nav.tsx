@@ -27,11 +27,11 @@ export default function Nav() {
   }, []);
 
   const items: [string, string][] = [
+    ['why', t('nav.why')],
+    ['groups', t('nav.groups')],
     ['process', t('nav.process')],
     ['services', t('nav.services')],
     ['pricing', t('nav.pricing')],
-    ['cases', t('nav.cases')],
-    ['blog', t('nav.blog')],
     ['faq', t('nav.faq')],
   ];
 
@@ -45,7 +45,7 @@ export default function Nav() {
     >
       <div className="container nav__inner">
         <a href="#top" className="nav__brand">
-          <img src="/assets/logo-trim.png" alt="Trecome" className="nav__logo" />
+          <img src="/assets/logo-tax.png" alt="Trecome" className="nav__logo" />
         </a>
         <nav className="nav__menu">
           {items.map(([id, label]) => (
