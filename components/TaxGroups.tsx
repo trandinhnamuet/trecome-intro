@@ -27,7 +27,9 @@ export default function TaxGroups() {
         </div>
 
         <div className="compare__wrap">
-          <table className="compare">
+          {/* Cột "chính sách" là văn xuôi chứ không phải dấu tích, nên trên mobile
+              cần rộng hơn mức min-width 540px mà .compare đặt sẵn */}
+          <table className="compare" style={{ minWidth: 680 }}>
             <colgroup>
               <col className="compare__col-feat" />
               <col /><col /><col />
