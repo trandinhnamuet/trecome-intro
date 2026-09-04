@@ -25,7 +25,7 @@ Ba ảnh trong vòng tròn ở hero chạy luân phiên 4 giây một lần. Dan
 | 15 | `15-buu-kien-cho-giao.jpg` | bưu kiện chờ giao | [Unsplash](https://unsplash.com/photos/cardboard-lot-1PxGp8kkQyk) |
 | 16 | `16-ho-kinh-doanh-via-he.jpg` | hộ kinh doanh ngoài phố | [Unsplash](https://unsplash.com/photos/woman-slicing-vegetable-on-her-bike-stand-near-store-8rViMo16EN0) |
 | 17 | `17-shopee-app.jpg` | ảnh marketing app Shopee | có sẵn trong repo |
-| 18 | `18-shopee-app-mockup.png` | mockup redesign app Shopee | có sẵn trong repo |
+| 18 | `18-shopee-app-mockup.png` | mockup app Shopee (**đã chỉnh**, xem dưới) | có sẵn trong repo |
 
 Ảnh 02, 04, 06, 07, 10, 16 là ảnh có người hoặc bối cảnh Việt Nam / Đông Nam Á.
 Các ảnh còn lại không có mặt người.
@@ -35,6 +35,27 @@ Các ảnh còn lại không có mặt người.
 > Việt Nam, đường phố Việt Nam — chứ không phải theo thông tin nhân thân. Ảnh
 > nào chỉ "trông như người châu Á" mà không có bối cảnh rõ thì nên soi kỹ trước
 > khi giữ.
+
+## Ảnh 18 đã bị chỉnh sửa
+
+`18-shopee-app-mockup.png` **không còn giống bản gốc trong lịch sử git**
+(`3.png` ở commit `5e67d9d`). Hai thay đổi:
+
+- Xoá hẳn chữ "Redesign" ở tiêu đề — đây là mockup của người khác, chữ đó không
+  nói gì về dịch vụ của mình.
+- Dời cụm logo + chữ "Shopee" từ góc trên trái vào giữa khung, và thu còn 86%.
+
+Lý do: ảnh tỉ lệ 2:1, mà `object-fit: cover` cắt về khung vuông nên chỉ còn thấy
+1/2 chiều ngang ở giữa. Trước khi sửa, phần chữ lọt vào vòng tròn là "pee
+Redesign".
+
+Vì sao phải thu 86% thay vì giữ nguyên cỡ: cụm logo rộng 1468px trên bản gốc
+4000px, nhưng khoảng trống bên phải chỉ tới x=2681 thì vướng mockup điện thoại.
+Đặt canh giữa mà giữ nguyên cỡ thì đè lên mockup; thu 86% vừa canh giữa tuyệt
+đối vừa chừa 51px hở.
+
+Sửa trên bản gốc 4000×2000 lấy lại từ git rồi mới co xuống 1400px, nên không bị
+nén hai lần. Muốn làm lại từ đầu thì lấy `git show 5e67d9d:public/hero-slide/3.png`.
 
 ## Ba điều cần biết khi thay ảnh
 
