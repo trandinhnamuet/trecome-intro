@@ -3,10 +3,28 @@ import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/I18nContext';
 import { useModal } from '@/lib/ModalContext';
 
+// Ảnh chạy luân phiên trong vòng tròn hero. Thứ tự trong mảng = thứ tự hiển
+// thị, và số ở đầu tên file trùng với nó — bỏ ảnh nào thì xoá cả file lẫn dòng
+// tương ứng ở đây. Nguồn từng ảnh ghi trong docs/anh-hero.md.
 const HERO_SLIDES = [
-  '/hero-slide/1.png',
-  '/hero-slide/2.jpg',
-  '/hero-slide/3.png',
+  '/hero-slide/01-shopee-dashboard.png',
+  '/hero-slide/02-chu-shop-xu-ly-don.jpg',
+  '/hero-slide/03-dashboard-doanh-thu.jpg',
+  '/hero-slide/04-shipper-cho-hang.jpg',
+  '/hero-slide/05-trang-san-tmdt.jpg',
+  '/hero-slide/06-livestream-ban-hang.jpg',
+  '/hero-slide/07-dong-goi-don-hang.jpg',
+  '/hero-slide/08-thung-hang-dan-nhan.jpg',
+  '/hero-slide/09-quan-ly-danh-muc.jpg',
+  '/hero-slide/10-xe-giao-hang-buu-dien.jpg',
+  '/hero-slide/11-bieu-do-hieu-suat.jpg',
+  '/hero-slide/12-kho-hang.jpg',
+  '/hero-slide/13-set-chup-anh-san-pham.jpg',
+  '/hero-slide/14-thung-carton-xep-lop.jpg',
+  '/hero-slide/15-buu-kien-cho-giao.jpg',
+  '/hero-slide/16-ho-kinh-doanh-via-he.jpg',
+  '/hero-slide/17-shopee-app.jpg',
+  '/hero-slide/18-shopee-app-mockup.png',
 ];
 const SLIDE_MS = 4000;
 
@@ -22,23 +40,10 @@ function HeroDashboard() {
     return () => clearInterval(id);
   }, []);
 
-  // Inscribe the whole image in the circle: scale it so its diagonal equals
-  // the circle's diameter (corners touch the circle, nothing cropped). The
-  // leftover area inside the circle is filled by the frame's white background.
-  // Use a ref callback (not onLoad): preloaded/cached images finish loading
-  // before React hydrates, so their onLoad never fires.
-  const fitDiagonal = (img: HTMLImageElement | null) => {
-    if (!img) return;
-    const apply = () => {
-      if (!img.naturalWidth || !img.naturalHeight) return;
-      const r = img.naturalWidth / img.naturalHeight;
-      const k = Math.sqrt(1 + r * r);
-      img.style.width = `${(100 * r) / k}%`;
-      img.style.height = `${100 / k}%`;
-    };
-    if (img.complete) apply();
-    else img.addEventListener('load', apply, { once: true });
-  };
+  // Ảnh lấp đầy vòng tròn bằng object-fit: cover trong CSS. Trước đây chỗ này
+  // có một hàm co ảnh theo đường chéo để lọt trọn vào vòng tròn, nhưng cách đó
+  // chừa lại hai mảng trắng trên/dưới. Cắt bớt rìa đổi lấy vòng tròn kín thì
+  // đáng hơn — chỉ cần chọn ảnh có chủ thể nằm giữa khung.
 
   return (
     <div className="hero__visual">
@@ -51,13 +56,12 @@ function HeroDashboard() {
             <img
               key={src}
               src={src}
-              alt={i === 0 ? 'Trecome team at work' : ''}
+              alt={i === 0 ? t('hero.photo.alt') : ''}
               aria-hidden={i !== 0}
               className={
                 'hero-photo__slide' + (i === active ? ' is-active' : '')
               }
               loading={i === 0 ? 'eager' : 'lazy'}
-              ref={fitDiagonal}
             />
           ))}
         </div>
