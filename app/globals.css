@@ -471,7 +471,7 @@ section[id] { scroll-margin-top: 88px; }
   inset: 2%;   /* thinner gutter -> larger photo circle */
   border-radius: 50%;
   overflow: hidden;
-  background: #fff;   /* fills the empty area around the inscribed image */
+  background: #fff;   /* chỉ còn thấy trong lúc ảnh chưa tải xong */
   box-shadow: 0 32px 80px rgba(10, 102, 255, .18), 0 12px 32px rgba(10, 10, 10, .08);
   animation: photoFloat 6s ease-in-out infinite;
 }
@@ -480,12 +480,12 @@ section[id] { scroll-margin-top: 88px; }
    The pre-JS fallback (max 100%) keeps it fully visible too. */
 .hero-photo__slide {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* cover chứ không phải contain: lấp kín vòng tròn, chấp nhận cắt rìa */
+  object-fit: cover;
+  object-position: center;
   display: block;
   opacity: 0;
   transition: opacity .8s ease;

@@ -20,23 +20,10 @@ function HeroDashboard() {
     return () => clearInterval(id);
   }, []);
 
-  // Inscribe the whole image in the circle: scale it so its diagonal equals
-  // the circle's diameter (corners touch the circle, nothing cropped). The
-  // leftover area inside the circle is filled by the frame's white background.
-  // Use a ref callback (not onLoad): preloaded/cached images finish loading
-  // before React hydrates, so their onLoad never fires.
-  const fitDiagonal = (img: HTMLImageElement | null) => {
-    if (!img) return;
-    const apply = () => {
-      if (!img.naturalWidth || !img.naturalHeight) return;
-      const r = img.naturalWidth / img.naturalHeight;
-      const k = Math.sqrt(1 + r * r);
-      img.style.width = `${(100 * r) / k}%`;
-      img.style.height = `${100 / k}%`;
-    };
-    if (img.complete) apply();
-    else img.addEventListener('load', apply, { once: true });
-  };
+  // Ảnh lấp đầy vòng tròn bằng object-fit: cover trong CSS. Trước đây chỗ này
+  // có một hàm co ảnh theo đường chéo để lọt trọn vào vòng tròn, nhưng cách đó
+  // chừa lại hai mảng trắng trên/dưới. Cắt bớt rìa đổi lấy vòng tròn kín thì
+  // đáng hơn — chỉ cần chọn ảnh có chủ thể nằm giữa khung.
 
   return (
     <div className="hero__visual">
@@ -55,7 +42,6 @@ function HeroDashboard() {
                 'hero-photo__slide' + (i === active ? ' is-active' : '')
               }
               loading={i === 0 ? 'eager' : 'lazy'}
-              ref={fitDiagonal}
             />
           ))}
         </div>

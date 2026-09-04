@@ -68,22 +68,43 @@ thương hiệu của bên thứ ba trên một trang bán dịch vụ kế toá
 
 | File | Ảnh | Tác giả | Nguồn |
 |---|---|---|---|
-| `1.jpg` | kế toán viên làm việc với sổ sách và máy tính | Karolina Grabowska | [Zes1yEMTFJE](https://unsplash.com/photos/Zes1yEMTFJE) |
-| `2.jpg` | hai người cùng rà soát báo cáo tài chính | Getty Images | [u-nHOoVS-mE](https://unsplash.com/photos/u-nHOoVS-mE) |
+| `1.jpg` | kế toán viên làm việc bên máy tính và chứng từ | cornerstone accounting | [G90H3ylKC7E](https://unsplash.com/photos/G90H3ylKC7E) |
+| `2.jpg` | phân tích báo cáo trên tablet giữa các biểu đồ | Jakub Żerdzicki | [ykgLX_CwtDw](https://unsplash.com/photos/ykgLX_CwtDw) |
 | `3.jpg` | bàn làm việc với máy tính, biểu đồ, bìa hồ sơ | Cht Gsml | [FVwy7PBiSUo](https://unsplash.com/photos/FVwy7PBiSUo) |
 
-**Unsplash License**: dùng thương mại được, không cần xin phép, không bắt buộc
-ghi công. Bảng trên giữ lại để sau này còn truy được nguồn, không phải để tuân
-thủ giấy phép.
+#### Cẩn thận ảnh Unsplash+
 
-Khi thay ảnh khác, nhớ hai điều:
+Kết quả tìm kiếm của Unsplash **trộn lẫn** ảnh free và ảnh Unsplash+ (trả phí).
+Ảnh Unsplash+ tải về không đăng ký thì bị đóng watermark chữ "Unsplash+" mờ rải
+khắp ảnh — nhạt tới mức nhìn lướt không thấy, chỉ lộ ra khi tăng tương phản.
 
-1. **Ảnh càng vuông càng tốt** — `fitDiagonal` trong `Hero.tsx` co ảnh sao cho
-   *đường chéo* bằng đường kính vòng tròn, tức bốn góc chạm viền và không cắt
-   mất gì. Ảnh càng dẹt thì phần hiển thị càng nhỏ so với vòng tròn. Ba ảnh hiện
-   tại tỉ lệ 3:2, là mức dẹt nhất còn chấp nhận được.
-2. **1600px chiều ngang là đủ** — vòng tròn chỉ hiển thị ảnh ở khoảng 420px, để
-   1600px là đã dư cho màn retina. Ba ảnh mới tổng 682KB, nhẹ hơn bộ cũ (2.1MB).
+Lần thay ảnh đầu tiên đã dính đúng bẫy này: hai trong ba ảnh chọn ra là
+Unsplash+, phải bỏ và chọn lại.
+
+Cách phân biệt chắc chắn nhất là nhìn URL trong kết quả API:
+
+| Loại | URL ảnh |
+|---|---|
+| Free — dùng được | `https://images.unsplash.com/photo-…` |
+| Unsplash+ — **không** dùng | `https://plus.unsplash.com/premium_photo-…` |
+
+Trong một lượt tìm 10 từ khoá có tới 42 ảnh thuộc loại thứ hai, nên phải lọc chứ
+không thể chọn bằng mắt. Sau khi tải về vẫn nên soi lại: mở ảnh, tăng tương phản
+lên ~2.5 lần rồi nhìn vùng sáng xem có chữ mờ không.
+
+**Unsplash License** (ảnh free): dùng thương mại được, không cần xin phép, không
+bắt buộc ghi công. Bảng nguồn ở trên giữ lại để sau này còn truy được xuất xứ,
+không phải để tuân thủ giấy phép.
+
+#### Khi thay ảnh khác
+
+1. **Chủ thể phải nằm giữa khung.** Ảnh lấp đầy vòng tròn bằng `object-fit:
+   cover`, tức là bị cắt bớt hai rìa. Trước đây `Hero.tsx` có hàm `fitDiagonal`
+   co ảnh lọt trọn vào vòng tròn (đường chéo ảnh bằng đường kính) — không cắt
+   mất gì nhưng chừa lại hai mảng trắng trên/dưới, nên đã bỏ.
+2. **1600px chiều ngang là đủ.** Vòng tròn chỉ hiển thị ảnh ở khoảng 420px, để
+   1600px là đã dư cho màn retina. Ba ảnh hiện tại tổng 499KB, nhẹ hơn nhiều so
+   với bộ Shopee cũ (2.1MB).
 
 ### Logo
 
