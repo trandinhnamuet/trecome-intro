@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/I18nContext';
 import { useModal } from '@/lib/ModalContext';
 
-const HERO_SLIDES = [
-  '/hero-slide/1.png',
-  '/hero-slide/2.jpg',
-  '/hero-slide/3.png',
-];
+// Ảnh Unsplash (Unsplash License — dùng thương mại được, không cần xin phép).
+// Nguồn từng ảnh ghi trong docs/trang-dich-vu-ke-toan.md.
+const HERO_SLIDES = ['/hero-slide/1.jpg', '/hero-slide/2.jpg', '/hero-slide/3.jpg'];
 const SLIDE_MS = 4000;
 
 function HeroDashboard() {
@@ -51,7 +49,7 @@ function HeroDashboard() {
             <img
               key={src}
               src={src}
-              alt={i === 0 ? 'Trecome team at work' : ''}
+              alt={i === 0 ? t('hero.photo.alt') : ''}
               aria-hidden={i !== 0}
               className={
                 'hero-photo__slide' + (i === active ? ' is-active' : '')

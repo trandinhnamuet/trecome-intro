@@ -55,6 +55,35 @@ Khi khách gửi bản cập nhật, sửa ở ba nơi và phải khớp nhau:
 | Component bỏ | | `Cases`, `Testimonials`, `Blog`, `Team`, `Stats` (không còn nội dung tương ứng) |
 | Toggle bảng giá | tháng / quý | Hộ & cá nhân kinh doanh / Doanh nghiệp |
 | Logo | `logo-trim.png` | `logo-tax.png` |
+| Ảnh hero | 3 ảnh marketing Shopee | 3 ảnh kế toán từ Unsplash |
+
+### Ảnh hero
+
+Ba ảnh chạy luân phiên 4 giây một lần trong vòng tròn ở hero, khai báo tại
+`HERO_SLIDES` trong `components/Hero.tsx`.
+
+Bản trên `main` dùng ba ảnh marketing của Shopee — vừa sai chủ đề, vừa là
+thương hiệu của bên thứ ba trên một trang bán dịch vụ kế toán. Đã thay hết bằng
+ảnh Unsplash:
+
+| File | Ảnh | Tác giả | Nguồn |
+|---|---|---|---|
+| `1.jpg` | kế toán viên làm việc với sổ sách và máy tính | Karolina Grabowska | [Zes1yEMTFJE](https://unsplash.com/photos/Zes1yEMTFJE) |
+| `2.jpg` | hai người cùng rà soát báo cáo tài chính | Getty Images | [u-nHOoVS-mE](https://unsplash.com/photos/u-nHOoVS-mE) |
+| `3.jpg` | bàn làm việc với máy tính, biểu đồ, bìa hồ sơ | Cht Gsml | [FVwy7PBiSUo](https://unsplash.com/photos/FVwy7PBiSUo) |
+
+**Unsplash License**: dùng thương mại được, không cần xin phép, không bắt buộc
+ghi công. Bảng trên giữ lại để sau này còn truy được nguồn, không phải để tuân
+thủ giấy phép.
+
+Khi thay ảnh khác, nhớ hai điều:
+
+1. **Ảnh càng vuông càng tốt** — `fitDiagonal` trong `Hero.tsx` co ảnh sao cho
+   *đường chéo* bằng đường kính vòng tròn, tức bốn góc chạm viền và không cắt
+   mất gì. Ảnh càng dẹt thì phần hiển thị càng nhỏ so với vòng tròn. Ba ảnh hiện
+   tại tỉ lệ 3:2, là mức dẹt nhất còn chấp nhận được.
+2. **1600px chiều ngang là đủ** — vòng tròn chỉ hiển thị ảnh ở khoảng 420px, để
+   1600px là đã dư cho màn retina. Ba ảnh mới tổng 682KB, nhẹ hơn bộ cũ (2.1MB).
 
 ### Logo
 
