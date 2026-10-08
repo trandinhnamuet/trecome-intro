@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Marquee from '@/components/Marquee';
@@ -11,6 +12,12 @@ import Blog from '@/components/Blog';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
+
+// Trang này phục vụ ở cả trecome.vn lẫn www.trecome.vn; canonical báo Google
+// gom về bản không www.
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function Home() {
   return (
