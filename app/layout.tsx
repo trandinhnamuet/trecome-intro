@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import './globals.css';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import VisitTracker from '@/components/VisitTracker';
+import { SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Trecome — E2E E-Commerce Operation',
   description:
     'Trecome đồng hành cùng các thương hiệu trên hành trình lên sàn TMĐT.',
